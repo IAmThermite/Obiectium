@@ -1,0 +1,4 @@
+/node_modules/
+/hide/
+/config/*
+!/config/default.json

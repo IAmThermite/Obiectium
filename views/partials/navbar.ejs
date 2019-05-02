@@ -1,0 +1,20 @@
+<div class="navbar">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/players/">Players</a></li>
+    <li><a href="/tournaments/">Tournaments</a></li>
+    <li><a href="/meta/">Meta</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/help/">Help</a></li>
+    <% if(user) { %>
+      <li>|</li>
+      <% if(user.is_admin) { %>
+        <li><a href="/admin/">Admin</a></li>
+      <% } %>
+      <li><a href="/players/<%= user.steamid %>"><%= user.alias %></a></li>
+      <li><a href="/auth/logout/">Logout</a></li>
+    <% } else { %>
+      <li><a href="/auth/login/">Sign in</a></li>
+    <% } %>
+  </ul>
+</div>

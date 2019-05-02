@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald|Roboto');
+
+body {
+  color: #fff;
+  background-color: rgb(0, 25, 50);
+  font-family: 'Roboto', sans-serif;
+  width: 90%;
+  padding-top: 10px;
+  margin: auto;
+}
+
+input {
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  width: 15%;
+  border: none;
+  border-radius: .5em;
+  background-color: rgb(180, 180, 180);
+  padding: 5px;
+}
+input:focus {
+  background-color: #fff;
+  border: 2px solid rgb(51, 255, 0);
+}
+input[type=number] {
+  width: 5%;
+}
+input[type=checkbox] {
+  width: 2%;
+}
+
+select {
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  width: 15%;
+  padding: 5px;
+  border: none;
+  background-color: rgb(180, 180, 180);
+}
+select:focus {
+  background-color: #fff;
+}
+
+button {
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  color: #000;
+  background-color: #fff;
+  border: 2px solid #000;
+  margin-top: 10px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+textarea {
+  background-color: rgb(180, 180, 180);
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  resize: none;
+  width: 40%;
+}
+textarea:focus {
+  background-color: #fff;
+  border: 2px solid rgb(51, 197, 38);
+}
+
+.header img {
+  display: block;
+  margin: 0 auto;
+  width: 40%;
+}
+
+.navbar ul {
+  list-style-type: none;
+  border: 3px solid #fff;
+  margin-bottom: 20px;
+  padding: 0px;
+  padding-bottom: 1px;
+  border-radius: 5px;
+}
+.navbar ul li {
+  display: inline;
+  font-size: 24px;
+  margin-left: 10px;
+}
+.navbar ul li a {
+  text-decoration: none;
+}
+
+a {
+  color: #fff;
+}
+a:hover {
+  background-color: rgb(150, 150, 150);
+  color: rgb(20, 20, 20);
+  border-radius: 5px;
+}
+
+.container {
+  margin: auto;
+}
+
+.footer {
+  color: #000;
+  margin-top: 20px;
+  text-align: center;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  font-size: 14px;
+  font-style: italic;
+  background-color: rgb(180, 180, 180);
+}
+.footer p {
+  margin: 0;
+}
+.footer a {
+  color: #000;
+}
+.footer a:hover {
+  background-color: rgb(60, 60, 60);
+  color: #fff;
+}
+
+.badge {
+  padding: 0px 5px;
+  color: #000;
+  font-family: monospace;
+  border-radius: 10px;
+  font-size: 36px;
+}
+
+.edit {
+  border: 2px solid rgb(51, 255, 0);
+  padding: 10px 10px;
+  background-color: rgb(34, 77, 0);
+  margin: 10px 0px;
+}
+
+.danger {
+  padding: 5px 10px;
+  margin: 10px 0px;
+  border: 2px solid rgb(255, 79, 79);
+  background-color: rgb(155, 0, 0);
+}
+.danger button {
+  background-color: rgb(241, 62, 62);
+}
+
+.match_comms {
+  font-size: 20px;
+  border: 2px solid #fff;
+  padding: 0;
+  background-color: rgb(60, 60, 60);
+  margin-bottom: 5px;
+}
+
+.news {
+  border: 2px solid #fff;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+
+.news .subtitle {
+  text-decoration: underline;
+}
+
+.pinned {
+  background-color: rgb(60, 60, 60);
+}
+
+.title {
+  font-size: 42px;
+  font-family: 'Oswald', sans-serif;
+  margin: 0px;
+}
+
+.subtitle {
+  font-size: 28px;
+  font-family: 'Oswald', sans-serif;
+  margin: 0px;
+}
+
+.map {
+  width: 100px;
+}
+
+.search {
+  border: 1px solid #fff;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+.data {
+  border: 2px solid #fff;
+  padding: 5px 10px;
+  background-color: rgb(50, 50, 50);
+  margin-bottom: 5px;
+}
+.data > .data {
+  background-color: rgb(25, 25, 25);
+}

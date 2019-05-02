@@ -1,0 +1,7 @@
+<% if(data.players) { %>
+  <% for(var i = 0; i < data.players.length; i++) { %>
+    <%- JSON.stringify(data.players[i]) %>
+  <% } %>
+<% } else { %>
+  <h1>No Players exist yet</h1>
+<% } %>
