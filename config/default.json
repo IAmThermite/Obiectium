@@ -9,7 +9,12 @@
   "app": {
     "name": "Obiectium"
   },
-  "steam": {
-    "apiKey": ""
+  "auth": {
+    "realm": "http://localhost:3000/",
+    "apiKey": "https://steamcommunity.com/dev"
+  },
+  "session": {
+    "secret": "SuperSecretSession",
+    "name": "SuperSecretSession"
   }
 }

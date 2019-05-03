@@ -22,8 +22,8 @@ passport.deserializeUser((obj, done) => {
 
 passport.use(new SteamStrategy({
   returnURL: 'http://localhost:3000/auth/steam/return',
-  realm: 'http://localhost:3000/',
-  apiKey: `${config.get('steam.apiKey')}`,
+  realm: `${config.get('auth.realm')}`,
+  apiKey: `${config.get('auth.apiKey')}`,
 },
 (identifier, profile, done) => {
   PlayerController.add({
@@ -43,10 +43,11 @@ passport.use(new SteamStrategy({
 }));
 
 app.use(session({
-  secret: 'your secret',
-  name: 'name of session id',
+  secret: `${config.get('session.secret')}`,
+  name: `${config.get('session.name')}`,
   resave: true,
-  saveUninitialized: true}));
+  saveUninitialized: true,
+}));
 
 
 app.use(passport.initialize());
