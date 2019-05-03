@@ -1,6 +1,10 @@
 {
   "name": "obiectium",
   "version": "0.0.1",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/IAmThermite/Obiectium"
+  },
   "description": "",
   "main": "server.js",
   "scripts": {
