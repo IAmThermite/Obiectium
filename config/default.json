@@ -6,8 +6,10 @@
     "password": "password",
     "database": "obiectium"
   },
-
   "app": {
     "name": "Obiectium"
+  },
+  "steam": {
+    "apiKey": ""
   }
 }

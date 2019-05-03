@@ -2,22 +2,11 @@ const db = require('../src/db');
 const utils = require('../src/utils');
 
 module.exports = {
-  findOne: (id) => new Promise((resolve, reject) => {
-    const query = `SELECT * FROM players WHERE id = $1 LIMIT 1`;
-    db.query(query, [id]).then((result) => {
-      utils.log('info', result);
-      resolve(result);
-    }).catch((error) => {
-      utils.log('error', error);
-      reject(error);
-    });
-  }),
-
   findOneBySteamID: (steamid) => new Promise((resolve, reject) => {
     const query = `SELECT * FROM players WHERE steamid = $1 LIMIT 1`;
     db.query(query, [steamid]).then((result) => {
-      utils.log('info', result);
-      resolve(result);
+      utils.log('info', JSON.stringify(result.rows[0]));
+      resolve(result.rows[0]);
     }).catch((error) => {
       utils.log('error', error);
       reject(error);
@@ -27,8 +16,8 @@ module.exports = {
   findOneByAlias: (alias) => new Promise((resolve, reject) => {
     const query = `SELECT * FROM players WHERE alias = $1 LIMIT 1`;
     db.query(query, [alias]).then((result) => {
-      utils.log('info', result);
-      resolve(result);
+      utils.log('info', JSON.stringify(result.rows[0]));
+      resolve(result.rows[0]);
     }).catch((error) => {
       utils.log('error', error);
       reject(error);
@@ -38,8 +27,8 @@ module.exports = {
   findAll: () => new Promise((resolve, reject) => {
     const query = `SELECT * FROM players`;
     db.query(query, []).then((result) => {
-      utils.log('info', result);
-      resolve(result);
+      utils.log('info', JSON.stringify(result.rows));
+      resolve(result.rows);
     }).catch((error) => {
       utils.log('error', error);
       reject(error);
@@ -48,16 +37,14 @@ module.exports = {
 
   add: (player) => new Promise((resolve, reject) => {
     const query = `INSERT INTO players(steamid, alias,
-        avatar, description, default_game)
-        VALUES($1, $2, $3, $4, $5)`;
+        avatar)
+        VALUES($1, $2, $3)`;
     db.query(query, [
       player.steamid,
       player.alias,
       player.avatar,
-      player.description,
-      player.default_game,
     ]).then((result) => {
-      utils.log('info', result);
+      utils.log('info', JSON.stringify(result));
       resolve(result);
     }).catch((error) => {
       utils.log('error', error);

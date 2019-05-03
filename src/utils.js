@@ -15,7 +15,7 @@ module.exports = {
   },
 
   sendError: (req, res, error, status) => {
-    res.render('template', {
+    res.status(status).render('template', {
       title: `${config.get('app.name')} | 'Error!'`,
       page: 'error',
       user: req.user,

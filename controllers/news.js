@@ -4,7 +4,7 @@ module.exports = {
   findAll: () => new Promise((resolve, reject) => {
     const query = `SELECT * FROM news`;
     db.query(query, []).then((result) => {
-      utils.log('info', result);
+      utils.log('info', JSON.stringify(result.rows));
       resolve(result);
     }).catch((error) => {
       utils.log('error', error);
@@ -24,7 +24,7 @@ module.exports = {
       news.pinned,
       news.createdBy,
     ]).then((result) => {
-      utils.log('info', result);
+      utils.log('info', JSON.stringify(result.rows));
       resolve(result);
     }).catch((error) => {
       utils.log('error', error);

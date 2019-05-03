@@ -4,7 +4,7 @@ module.exports = {
   findOne: (id) => new Promise((resolve, reject) => {
     const query = `SELECT * FROM matches WHERE id = $1 LIMIT 1`;
     db.query(query, [id]).then((result) => {
-      utils.log('info', result);
+      utils.log('info', JSON.stringify(result.rows));
       resolve(result);
     }).catch((error) => {
       utils.log('error', error);
@@ -15,7 +15,7 @@ module.exports = {
   findAll: () => new Promise((resolve, reject) => {
     const query = `SELECT * FROM matches`;
     db.query(query, []).then((result) => {
-      utils.log('info', result);
+      utils.log('info', JSON.stringify(result.rows));
       resolve(result);
     }).catch((error) => {
       utils.log('error', error);
@@ -26,7 +26,7 @@ module.exports = {
   findAllByTournament: (id) => new Promise((resolve, reject) => {
     const query = `SELECT * FROM matches WHERE tournament_id = $1`;
     db.query(query, [id]).then((result) => {
-      utils.log('info', result);
+      utils.log('info', JSON.stringify(result.rows));
       resolve(result);
     }).catch((error) => {
       utils.log('error', error);
@@ -47,7 +47,7 @@ module.exports = {
       match.maps,
     ];
     db.query(query, params).then((result) => {
-      utils.log('info', result);
+      utils.log('info', JSON.stringify(result.rows));
       resolve(result);
     }).catch((error) => {
       utils.log('error', error);

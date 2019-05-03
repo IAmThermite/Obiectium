@@ -5,14 +5,14 @@ const controller = require('../controllers').Player;
 router.get('/', (req, res) => {
   controller.findAll().then((result) => {
     utils.render(req, res, 'players/list', 'Players',
-        {players: result.rows[0], text: 'hello'});
+        {players: result, text: 'hello'});
   }).catch((error) => {
     utils.sendError(req, res, error, 500);
   });
 });
 
-router.get('/:id', (req, res) => {
-  controller.findOne(req.params.id).then((result) => {
+router.get('/:steamid', (req, res) => {
+  controller.findOneBySteamID(req.params.steamid).then((result) => {
     utils.render(req, res, 'players/view', 'Players', {player: result});
   }).catch((error) => {
     utils.sendError(req, res, error, 500);

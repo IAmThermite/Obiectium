@@ -1,11 +1,33 @@
+const passport = require('passport');
 const router = require('express').Router();
 
-router.get('/login', (req, res) => {
-  res.send('auth login');
-});
+/**
+ * The actual login
+ */
+router.get('/steam',
+    passport.authenticate('steam', {failureRedirect: '/'}),
+    (req, res) => {
+      res.redirect('/');
+    }
+);
+
+/**
+ * After the login
+ */
+router.get('/steam/return',
+    (req, res, next) => {
+      req.url = req.originalUrl;
+      next();
+    },
+    passport.authenticate('steam', {failureRedirect: '/'}),
+    (req, res) => {
+      res.redirect(`/players/${req.user.id}`);
+    }
+);
 
 router.get('/logout', (req, res) => {
-  res.send('auth logout');
+  req.logout();
+  res.redirect('/');
 });
 
 module.exports = router;

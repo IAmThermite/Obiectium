@@ -1,6 +1,16 @@
 <% if(data.players) { %>
   <% for(var i = 0; i < data.players.length; i++) { %>
-    <%- JSON.stringify(data.players[i]) %>
+    <div class="data">
+      <table>
+        <tr>
+          <td rowspan="2"><img style="width: 50%;" src="<%= data.players[i].avatar %>" alt="Avatar" /></td>
+          <td><p class="subtitle"><a href="/players/<%= data.players[i].steamid %>"><%= data.players[i].alias %><a></p></td>
+        </tr>
+        <tr>
+          <td><a href="http://steamcommunity.com/profiles/<%= data.players[i].steamid %>"><%= data.players[i].steamid %></a></td>
+        </tr>
+      </table>
+    </div>
   <% } %>
 <% } else { %>
   <h1>No Players exist yet</h1>
