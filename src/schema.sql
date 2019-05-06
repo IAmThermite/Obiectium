@@ -16,6 +16,7 @@ CREATE TABLE players (
 CREATE TABLE news (
   id SERIAL PRIMARY KEY,
   title VARCHAR(50) NOT NULL,
+  game INTEGER,
   markdown TEXT NOT NULL,
   content TEXT NOT NULL,
   pinned BOOLEAN NOT NULL DEFAULT FALSE,

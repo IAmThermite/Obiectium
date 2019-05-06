@@ -9,6 +9,7 @@ class News {
   constructor(obj) {
     this.id = obj.id;
     this.title = obj.title;
+    this.game = obj.game;
     this.markdown = obj.markdown;
     this.content = obj.content;
     this.pinned = obj.pinned;

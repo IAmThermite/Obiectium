@@ -23,4 +23,9 @@ module.exports = {
       status,
     });
   },
+
+  setDefaultGameCookie: (res, game) => {
+    res.cookie('defaultGame', game.id, {maxAge: '5y'});
+    res.redirect('/');
+  },
 };

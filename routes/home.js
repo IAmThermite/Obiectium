@@ -4,14 +4,11 @@ const controller = require('../controllers/').News;
 const utils = require('../src/utils');
 
 router.get('/', (req, res) => {
-  // controller.findAll().then((result) => {
-
-  //   utils.render(req, res, 'home', 'Home', {});
-  // }).catch((error) => {
-  //   utils.sendError(req, res, error, 500);
-  // });
-
-  utils.render(req, res, 'home', 'Home', {});
+  controller.findAll().then((result) => {
+    utils.render(req, res, 'home', 'Home', {news: result.rows});
+  }).catch((error) => {
+    utils.sendError(req, res, error, 500);
+  });
 });
 
 router.get('/about/', (req, res) => {

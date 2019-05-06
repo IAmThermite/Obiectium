@@ -1,5 +1,7 @@
 const db = require('../src/db');
 
+const utils = require('../src/utils');
+
 module.exports = {
   findAll: () => new Promise((resolve, reject) => {
     const query = `SELECT * FROM news`;
@@ -13,12 +15,13 @@ module.exports = {
   }),
 
   add: (news) => new Promise((resolve, reject) => {
-    const query = `INSERT INTO news(title, markdown,
+    const query = `INSERT INTO news(title, game, markdown,
         content, pinned, created_by)
-        VALUES($1, $2, $3, $4)`;
+        VALUES($1, $2, $3, $4, $5, $6)`;
     const convertedMkdn = news.markdown; // markdown and xss
     db.query(query, [
       news.title,
+      news.game,
       news.markdown,
       convertedMkdn,
       news.pinned,
