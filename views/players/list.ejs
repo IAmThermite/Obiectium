@@ -4,10 +4,16 @@
       <table>
         <tr>
           <td rowspan="2"><img style="width: 50%;" src="<%= data.players[i].avatar %>" alt="Avatar" /></td>
-          <td><p class="subtitle"><a href="/players/<%= data.players[i].steamid %>"><%= data.players[i].alias %><a></p></td>
+          <td><p class="subtitle"><a href="/players/<%= data.players[i].steamid %>"><%= data.players[i].alias %></a><% if(data.players[i].badges.length) { %>
+            <% for(var j = 0; j < data.players[i].badges.length; j++) { %>
+              <span class="badge" style="background: <%= data.players[i].badges[j].colour %>"><%= data.players[i].badges[j].name %></span>
+            <% } %>
+          <% } %></p></td>
+          
         </tr>
         <tr>
           <td><a href="http://steamcommunity.com/profiles/<%= data.players[i].steamid %>"><%= data.players[i].steamid %></a></td>
+          
         </tr>
       </table>
     </div>

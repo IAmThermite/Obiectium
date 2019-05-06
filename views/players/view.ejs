@@ -1,4 +1,10 @@
-<p class="title"><%= data.player.alias %></p>
+<p class="title"><%= data.player.alias %>
+<% if(data.player.badges) { %>
+  <% for(var i = 0; i < data.player.badges.length; i++) { %>
+    <span class="badge" style="background: <%= data.player.badges[i].colour %>"><%= data.player.badges[i].name %></span>
+  <% } %>
+<% } %>
+</p>
 <div class="data">
   <a href="http://steamcommunity.com/profiles/<%= data.player.steamid %>"><%= data.player.steamid %></a>
   <p><%= data.player.description %></p>

@@ -12,6 +12,7 @@ class Player {
     this.alias = obj.alias;
     this.avatar = obj.avatar;
     this.description = obj.description;
+    this.badges = obj.badges;
   }
 }
 

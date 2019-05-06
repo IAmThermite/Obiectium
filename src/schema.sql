@@ -9,7 +9,8 @@ CREATE TABLE players (
   steamid VARCHAR(32) PRIMARY KEY,
   alias VARCHAR(32) UNIQUE NOT NULL,
   avatar VARCHAR(200),
-  description VARCHAR(300)
+  description VARCHAR(300),
+  badges JSON
 );
 
 CREATE TABLE news (
