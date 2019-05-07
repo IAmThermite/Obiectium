@@ -154,7 +154,7 @@ a:hover {
 }
 
 .news {
-  border: 2px solid #fff;
+  background-color: rgb(20, 20, 20);
   padding: 5px 10px;
   margin-bottom: 10px;
 }
@@ -164,7 +164,7 @@ a:hover {
 }
 
 .pinned {
-  background-color: rgb(60, 60, 60);
+  background-color: rgb(65, 31, 0);
 }
 
 .title {

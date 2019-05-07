@@ -4,8 +4,11 @@ const controller = require('../controllers/').News;
 const utils = require('../src/utils');
 
 router.get('/', (req, res) => {
-  controller.findAll().then((result) => {
-    utils.render(req, res, 'home', 'Home', {news: result.rows});
+  Promise.all([controller.findAll(), controller.findAllPinned()]).then((results) => {
+    utils.render(req, res, 'home', 'Home', {
+      news: results[0].rows,
+      pinned: results[1].rows
+    });
   }).catch((error) => {
     utils.sendError(req, res, error, 500);
   });

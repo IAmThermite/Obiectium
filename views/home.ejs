@@ -1,2 +1,22 @@
 <p class="title">News</p>
-<%- JSON.stringify(data.news) %>
+<% if(data.pinned) { %>
+  <% for(var i = 0; i < data.pinned.length; i++) { %>
+    <div class="data">
+      <p class="subtitle"><img height="32px" src="img/misc/pin.svg" alt="pinned" /><%= data.pinned[i].title %></p>
+      <div class="news pinned">
+          <%- data.pinned[i].content %>
+      </div>
+    </div>
+  <% } %>
+<% } %>
+
+<% if(data.news) { %>
+  <% for(var i = 0; i < data.news.length; i++) { %>
+    <div class="data">
+      <p class="subtitle"><%= data.news[i].title %></p>
+      <div class="news">
+          <%- data.news[i].content %>
+      </div>
+    </div>
+  <% } %>
+<% } %>

@@ -2,8 +2,8 @@
   "name": "obiectium",
   "version": "0.0.1",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/IAmThermite/Obiectium"
+    "type": "git",
+    "url": "https://github.com/IAmThermite/Obiectium"
   },
   "description": "",
   "main": "server.js",
@@ -20,7 +20,10 @@
     "express-session": "^1.16.1",
     "passport": "^0.4.0",
     "passport-steam": "^1.0.10",
-    "pg": "^7.10.0"
+    "pg": "^7.10.0",
+    "showdown": "^1.9.0",
+    "showdown-xss-filter": "^0.2.0",
+    "xss": "^1.0.6"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
