@@ -1,0 +1,22 @@
+<p class="title"><%= data.game.name %></p>
+<div class="data">
+  <p></p>
+  <% if(data.tournaments) { %>
+    <div class="data">
+      <% for(var i = 0; i < data.tournaments.length; i++) { %>
+        <% if(!data.tournaments[i].isHidden) { %>
+          <p class="subtitle"><a href="/tournaments/<%= data.tournaments[i].id %>"><%= data.tournaments[i].name %></a></p>
+          <p><%= data.tournamts[i].description %></p>
+
+          <% if(data.tournaments[i].canSignup) { %>
+            <p><a href="/tournaments/<%= data.tournaments[i].id %>">Signup here!</a>
+          <% } %>
+
+          <% if(data.tournaments[i].isActive) { %>
+            <p><a href="/tournaments/<%= data.tournaments[i].id %>/matches">Signup here!</a>
+          <% } %>
+        <% } %>
+      <% } %>
+    </div>
+  <% } %>
+</div>

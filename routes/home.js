@@ -1,13 +1,13 @@
 const router = require('express').Router();
-const controller = require('../controllers/').News;
+const controller = require('../controllers/');
 
 const utils = require('../src/utils');
 
 router.get('/', (req, res) => {
-  Promise.all([controller.findAll(), controller.findAllPinned()]).then((results) => {
+  Promise.all([controller.News.findAll(), controller.News.findAllPinned()]).then((results) => {
     utils.render(req, res, 'home', 'Home', {
-      news: results[0].rows,
-      pinned: results[1].rows
+      news: results[0],
+      pinned: results[1],
     });
   }).catch((error) => {
     utils.sendError(req, res, error, 500);

@@ -1,0 +1,27 @@
+<% if(data.tournaments) { %>
+  <% for(var i = 0; i < data.tournaments.length; i++) { %>
+    <% if(!data.tournaments[i].isHidden) { %>
+      <div class="data">
+        <p class="subitile"><%= data.tournaments[i].name %></p>
+        <table>
+          <tr>
+            <td>Max Players: <%= data.tournaments[i].maxPlayers %></td>
+            <td>Min Players: <%= data.tournaments[i].minPlayers %></td>
+            
+          </tr>
+          <% if(data.tournaments[i].isActive) { %>
+            <tr colspan="2">
+              <form action="/tournaments/<%= data.tournaments[i].id %>/signup/" method="POST">
+                <input name="playerId" value="<%= user.steamid %>" type="hidden" />
+                <input name="tournamentId" value="<%= data.tournaments[i].id %>" type="hidden" />
+                <button>Signup</button>
+              </form>
+            </tr>
+          <% } %>
+        </table>
+      </div>
+    <% } %>
+  <% } %>
+<% } else { %>
+  <h1>No Tournaments exist yet</h1>
+<% } %>

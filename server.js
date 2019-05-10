@@ -26,19 +26,22 @@ passport.use(new SteamStrategy({
   apiKey: `${config.get('auth.apiKey')}`,
 },
 (identifier, profile, done) => {
-  PlayerController.add({
-    steamid: profile.id,
-    alias: profile.displayName,
-    avatar: profile.photos[2].value,
-  }).then((output) => {
-    return done(null, profile);
-  }).catch((error) => {
-    if (error.code == '23505') {
-      utils.log('info', 'Player already exists');
-      return done(null, profile);
+  PlayerController.findOneBySteamID(profile.id).then((output) => {
+    if (output === undefined) {
+      PlayerController.add({
+        steamid: profile.id,
+        alias: profile.displayName,
+        avatar: profile.photos[2].value,
+      }).then((output) => {
+        return done(null, output);
+      }).catch((error) => {
+        return done(null, null);
+      });
     } else {
-      return done(null, null);
+      return done(null, output);
     }
+  }).catch((error) => {
+    return done(null, null);
   });
 }));
 

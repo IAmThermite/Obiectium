@@ -5,6 +5,8 @@ const xssFilter = require('showdown-xss-filter');
 const db = require('../src/db');
 const utils = require('../src/utils');
 
+const News = require('../models/news');
+
 const converter = new showdown.Converter({
   extensions: [xssFilter],
 });
@@ -13,8 +15,12 @@ module.exports = {
   findAll: () => new Promise((resolve, reject) => {
     const query = `SELECT * FROM news WHERE pinned = false ORDER BY id DESC LIMIT 5 `;
     db.query(query, []).then((result) => {
+      const news = [];
+      result.rows.forEach((obj) => {
+        news.push(new News(obj));
+      });
       utils.log('info', JSON.stringify(result.rows));
-      resolve(result);
+      resolve(news);
     }).catch((error) => {
       utils.log('error', error);
       reject(error);
@@ -24,8 +30,12 @@ module.exports = {
   findAllPinned: () => new Promise((resolve, reject) => {
     const query = `SELECT * FROM news WHERE pinned = true ORDER BY id DESC LIMIT 3 `;
     db.query(query, []).then((result) => {
+      const news = [];
+      result.rows.forEach((obj) => {
+        news.push(new News(obj));
+      });
       utils.log('info', JSON.stringify(result.rows));
-      resolve(result);
+      resolve(news);
     }).catch((error) => {
       utils.log('error', error);
       reject(error);
@@ -46,7 +56,7 @@ module.exports = {
       news.createdBy,
     ]).then((result) => {
       utils.log('info', JSON.stringify(result.rows));
-      resolve(result);
+      resolve(new News(result.rows));
     }).catch((error) => {
       utils.log('error', error);
       reject(error);

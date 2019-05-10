@@ -1,0 +1,29 @@
+<div class="data">
+  <p class="title"><%= data.tournament.name %></p>
+  <p class="subtitle"><%= data.tournament.description %></p>
+  <% if(user && data.tournament.canSignup) { %>
+    <form action="/tournaments/<%= data.tournament.id %>/signup/" method="POST">
+      <input name="playerId" value="<%= user.steamid %>" type="hidden" />
+      <input name="tournamentId" value="<%= data.tournaments[i].id %>" type="hidden" />
+      <button>Signup</button>
+    </form>
+  <% } else { %>
+    <p>Tournament is currently not open for signups.</p>
+  <% } %>
+
+  <% if(data.tournament.isActive) { %>
+    <p>Tournament is currently active! Current Round: <%= data.tournament.current_round %></p>
+  <% } %>
+  <p>View all the matches <a href="/tournaments/<%= data.tournament.id %>/matches">here</a></p>
+  
+  <!-- show ranks, from the signups -->
+  <!-- show matches -->
+
+  <div class="data">
+    <% if(data.matches.length !== 0) { %>
+      <%- JSON.stringify(data.matches) %>
+    <% } else { %>
+      <p class="subtitle">There are no current matches</p>
+    <% } %>
+  </div>
+</div>

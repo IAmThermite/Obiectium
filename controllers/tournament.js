@@ -12,9 +12,9 @@ module.exports = {
     });
   }),
 
-  findAll: () => new Promise((resolve, reject) => {
-    const query = `SELECT * FROM tournaments`;
-    db.query(query, []).then((result) => {
+  findAll: (gameId) => new Promise((resolve, reject) => {
+    const query = `SELECT * FROM tournaments WHERE game_id = $1`;
+    db.query(query, [gameId]).then((result) => {
       utils.log('info', JSON.stringify(result.rows));
       resolve(result);
     }).catch((error) => {

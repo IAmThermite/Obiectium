@@ -1,0 +1,16 @@
+<% if(data.games) { %>
+  <% for(var i = 0; i < data.games.length; i++) { %>
+    <div class="data">
+      <table>
+        <tr>
+          <td><a href="<%= data.games[i].url %>"><%= data.games[i].name %></a></td>
+        </tr>
+        <tr>
+          <td><%= data.games[i].description %></td>
+        </tr>
+      </table>
+    </div>
+  <% } %>
+<% } else { %>
+  <h1>No Games exist yet</h1>
+<% } %>
