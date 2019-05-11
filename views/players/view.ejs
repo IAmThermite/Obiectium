@@ -6,7 +6,17 @@
 <% } %>
 </p>
 <div class="data">
-  <a href="http://steamcommunity.com/profiles/<%= data.player.steamid %>"><%= data.player.steamid %></a>
-  <p><%= data.player.description %></p>
-  <img src="<%= data.player.avatar %>" alt="Avatar" />
+  <table>
+      <tr>
+        <td>
+          <img src="<%= data.player.avatar %>" alt="Avatar" />
+        </td>
+        <td><%= data.player.description %></td>
+      </tr>
+    <tr>
+      <td>
+        <a href="http://steamcommunity.com/profiles/<%= data.player.steamid %>"><%= data.player.steamid %></a>
+      </td>
+    </tr>
+  </table>
 </div>
