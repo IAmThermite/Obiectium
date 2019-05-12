@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const config = require('config');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
 const SteamStrategy = require('passport-steam').Strategy;
@@ -11,6 +12,31 @@ const utils = require('./src/utils');
 const PlayerController = require('./controllers').Player;
 
 const app = express();
+
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+app.use(session({
+  name: `${config.get('session.name')}`,
+  secret: `${config.get('session.secret')}`,
+  store: new (require('connect-pg-simple')(session))({
+    conString: `postgresql://${config.get('db.user')}:${config.get('db.password')}@${config.get('db.host')}:${config.get('db.port')}/${config.get('db.database')}`,
+  }),
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 10 *525600 * 60, // 10 years
+  },
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '/views'));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -44,25 +70,6 @@ passport.use(new SteamStrategy({
     return done(null, null);
   });
 }));
-
-app.use(session({
-  secret: `${config.get('session.secret')}`,
-  name: `${config.get('session.name')}`,
-  resave: true,
-  saveUninitialized: true,
-}));
-
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '/views'));
-
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
 
 routes(app);
 

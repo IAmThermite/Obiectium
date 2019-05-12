@@ -13,6 +13,7 @@
       <li><a href="/players/<%= user.steamid %>"><%= user.alias %></a></li>
       <li><a href="/auth/logout/">Logout</a></li>
     <% } else { %>
+      <li>|</li>
       <li><a href="/auth/steam/">Sign in</a></li>
     <% } %>
   </ul>

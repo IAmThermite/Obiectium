@@ -71,3 +71,11 @@ CREATE TABLE matches (
   FOREIGN KEY (result_submitted_by) REFERENCES players (steamid) ON DELETE CASCADE,
   FOREIGN KEY (result_confirmed_by) REFERENCES players (steamid) ON DELETE CASCADE
 );
+
+/* https://github.com/voxpelli/node-connect-pg-simple/blob/HEAD/table.sql */
+CREATE TABLE session (
+  sid varchar NOT NULL,
+	sess json NOT NULL,
+	expire timestamp(6) NOT NULL
+) WITH (OIDS=FALSE);
+ALTER TABLE session ADD CONSTRAINT session_pkey PRIMARY KEY (sid) NOT DEFERRABLE INITIALLY IMMEDIATE;
