@@ -1,9 +1,9 @@
 <% if(data.games) { %>
   <% for(var i = 0; i < data.games.length; i++) { %>
-    <div class="data">
+    <div class="data" id="<%= data.games[i].name %>">
       <table>
         <tr>
-          <td><a href="<%= data.games[i].url %>"><%= data.games[i].name %></a></td>
+          <td class="title"><a href="<%= data.games[i].url %>"><%= data.games[i].name %></a></td>
         </tr>
         <tr>
           <td><%= data.games[i].description %></td>

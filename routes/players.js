@@ -5,7 +5,7 @@ const controller = require('../controllers').Player;
 router.get('/', (req, res) => {
   controller.findAll().then((result) => {
     utils.render(req, res, 'players/list', 'Players',
-        {players: result, text: 'hello'});
+        {players: result});
   }).catch((error) => {
     utils.sendError(req, res, error, 500);
   });

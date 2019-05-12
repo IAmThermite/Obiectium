@@ -1,29 +1,48 @@
 <div class="data">
   <p class="title"><%= data.tournament.name %></p>
   <p class="subtitle"><%= data.tournament.description %></p>
+  <p><a href="/games/#<%= data.tournament.game.name %>"><%= data.tournament.game.name %></a></p>
+  <table>
+      <tr>
+      <td>Max Players: <%= data.tournament.maxPlayers %></td>
+      <td>Min Players: <%= data.tournament.minPlayers %></td>
+    </tr>
+    <tr>
+      <td>Win Points: <%= data.tournament.pointsWin %></td>
+      <td>Lose Points: <%= data.tournament.pointsLose %></td>
+    </tr>
+    <tr>
+      <td>Forfeit Win Points: <%= data.tournament.pointsFFWin %></td>
+      <td>Forfeit Lose Points: <%= data.tournament.pointsFFLose %></td>
+      <td>Tie Points: <%= data.tournament.pointsTie %></td>
+    </tr>
+  </table>
   <% if(user && data.tournament.canSignup) { %>
     <form action="/tournaments/<%= data.tournament.id %>/signup/" method="POST">
       <input name="playerId" value="<%= user.steamid %>" type="hidden" />
-      <input name="tournamentId" value="<%= data.tournaments[i].id %>" type="hidden" />
-      <button>Signup</button>
+      <input name="tournamentId" value="<%= data.tournament.id %>" type="hidden" />
+      <button class="confirm">Signup</button>
     </form>
   <% } else { %>
     <p>Tournament is currently not open for signups.</p>
   <% } %>
 
   <% if(data.tournament.isActive) { %>
-    <p>Tournament is currently active! Current Round: <%= data.tournament.current_round %></p>
+    <p>Tournament is currently active! Current Round: <%= data.tournament.currentRound %></p>
   <% } %>
-  <p>View all the matches <a href="/tournaments/<%= data.tournament.id %>/matches">here</a></p>
   
   <!-- show ranks, from the signups -->
   <!-- show matches -->
 
-  <div class="data">
-    <% if(data.matches.length !== 0) { %>
-      <%- JSON.stringify(data.matches) %>
-    <% } else { %>
-      <p class="subtitle">There are no current matches</p>
-    <% } %>
+  <% if(data.matches) { %>
+    <div class="data">
+      <p>View all the matches <a href="/tournaments/<%= data.tournament.id %>/matches">here</a></p>
+      <% if(data.matches.length !== 0) { %>
+        <%= data.tournament.currentRound %>
+        <%- JSON.stringify(data.matches) %>
+      <% } else { %>
+        <p class="subtitle">There are no current matches</p>
+      <% } %>
+    </div>
   </div>
-</div>
+<% } %>

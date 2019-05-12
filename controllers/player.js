@@ -6,8 +6,12 @@ module.exports = {
   findOneBySteamID: (steamid) => new Promise((resolve, reject) => {
     const query = `SELECT * FROM players WHERE steamid = $1 LIMIT 1`;
     db.query(query, [steamid]).then((result) => {
-      utils.log('info', JSON.stringify(result.rows[0]));
-      resolve(new Player(result.rows[0]));
+      if (result.rowCount > 0) {
+        utils.log('info', JSON.stringify(result.rows[0]));
+        resolve(new Player(result.rows[0]));
+      } else {
+        resolve(undefined);
+      }
     }).catch((error) => {
       utils.log('error', error);
       reject(error);

@@ -6,6 +6,10 @@
       <div class="news pinned">
           <%- data.pinned[i].content %>
       </div>
+      <p>Author: 
+        <img height="20px" src="<%= data.pinned[i].createdBy.avatar %>" alt="IMG" />
+        <a href="<%= data.pinned[i].createdBy.steamid %>"><%= data.pinned[i].createdBy.alias %></a>
+      </p>
     </div>
   <% } %>
 <% } %>
@@ -17,6 +21,10 @@
       <div class="news">
           <%- data.news[i].content %>
       </div>
+      <p>Author: 
+        <img height="20px" src="<%= data.news[i].createdBy.avatar %>" alt="IMG" />
+        <a href="<%= data.news[i].createdBy.steamid %>"><%= data.news[i].createdBy.alias %></a>
+      </p>
     </div>
   <% } %>
 <% } %>

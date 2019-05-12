@@ -64,6 +64,14 @@ textarea:focus {
   border: 2px solid rgb(51, 197, 38);
 }
 
+.warning {
+  background-color: rgb(255, 116, 116);
+}
+
+.confirm {
+  background-color: rgb(85, 255, 107);
+}
+
 .header img {
   display: block;
   margin: 0 auto;

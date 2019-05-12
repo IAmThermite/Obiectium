@@ -1,25 +1,30 @@
-<% if(data.tournaments) { %>
-  <% for(var i = 0; i < data.tournaments.length; i++) { %>
-    <% if(!data.tournaments[i].isHidden) { %>
-      <div class="data">
-        <p class="subitile"><%= data.tournaments[i].name %></p>
-        <table>
-          <tr>
-            <td>Max Players: <%= data.tournaments[i].maxPlayers %></td>
-            <td>Min Players: <%= data.tournaments[i].minPlayers %></td>
-            
-          </tr>
-          <% if(data.tournaments[i].isActive) { %>
-            <tr colspan="2">
-              <form action="/tournaments/<%= data.tournaments[i].id %>/signup/" method="POST">
-                <input name="playerId" value="<%= user.steamid %>" type="hidden" />
-                <input name="tournamentId" value="<%= data.tournaments[i].id %>" type="hidden" />
-                <button>Signup</button>
-              </form>
-            </tr>
-          <% } %>
-        </table>
-      </div>
+<% if(data.tournaments && data.games) { %>
+  <% for(var i = 0; i < data.games.length; i++) { %>
+    <p class="title"><a href="/games/#<%= data.games[i].name %>"><%= data.games[i].name %></a></p>
+    <% for(var j = 0; j < data.tournaments.length; j++) { %>
+      <% if(data.games[i].id === data.tournaments[j].game.id) { %>
+        <% if(!data.tournaments[j].isHidden) { %>
+          <div class="data">
+            <p class="subtitle"><a href="/tournaments/<%= data.tournaments[j].id %>"><%= data.tournaments[j].name %></a></p>
+            <table>
+              <tr>
+                <td>Max Players: <%= data.tournaments[j].maxPlayers %></td>
+                <td>Min Players: <%= data.tournaments[j].minPlayers %></td>
+                
+              </tr>
+              <% if(user && data.tournaments[j].canSignup) { %>
+                <tr colspan="2">
+                  <form action="/tournaments/<%= data.tournaments[j].id %>/signup/" method="POST">
+                    <input name="playerId" value="<%= user.steamid %>" type="hidden" />
+                    <input name="tournamentId" value="<%= data.tournaments[j].id %>" type="hidden" />
+                    <button class="confirm">Signup</button>
+                  </form>
+                </tr>
+              <% } %>
+            </table>
+          </div>
+        <% } %>
+      <% } %>
     <% } %>
   <% } %>
 <% } else { %>

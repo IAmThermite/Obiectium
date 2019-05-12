@@ -7,7 +7,6 @@ class Player {
    * @param {Object} obj the json representation of the Player.
    */
   constructor(obj) {
-    this.id = obj.id;
     this.steamid = obj.steamid;
     this.alias = obj.alias;
     this.avatar = obj.avatar;
