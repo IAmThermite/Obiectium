@@ -1,46 +1,35 @@
-const {Pool} = require('pg');
-
+const Sequelize = require('sequelize');
+const fs = require('fs');
+const path = require('path');
+const config = require('config').get('db');
 const utils = require('./utils');
+const db = {};
 
-const dbConfig = require('config').get('db');
+const sequelize = new Sequelize(config.database, config.username,
+    config.password, config);
 
-const pool = new Pool({
-  host: dbConfig.get('host'),
-  port: dbConfig.get('port'),
-  user: dbConfig.get('user'),
-  password: dbConfig.get('password'),
-  database: dbConfig.get('database'),
+sequelize.authenticate().then(() => {
+  utils.log('info', 'Connected to database');
+}).catch((error) => {
+  utils.log('error', 'Could not connect to database!');
+  throw new Error(error);
 });
 
-pool.connect((error, pool) => {
-  if (error) {
-    throw new Error(error);
-  } else {
-    utils.log('info', `Connected to database
-    ${pool.host}:${pool.port}/${pool.database}`);
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+fs.readdirSync(path.join(__dirname, '../models')).filter((file) => {
+  return (file.indexOf('.') !== 0) && (file !== 'index.js')
+      && (file.slice(-3) === '.js');
+}).forEach((file) => {
+  const model = sequelize['import'](path.join(__dirname, '../models', file));
+  db[model.name] = model;
+});
+
+Object.keys(db).forEach((modelName) => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
   }
 });
 
-module.exports = {
-  query: (query, params) => pool.query(query, params),
-
-  transactionQuery: (query, params) => {
-    return pool.query('BEGIN').then((result) => {
-      pool.query(query, params).then((result1) => {
-        pool.query('COMMIT');
-      }).catch((error1) => {
-        rollbackQuery(error1);
-      });
-    }).catch((error) => {
-      rollbackQuery(error);
-    });
-  },
-};
-
-const rollbackQuery = (error) => {
-  query('ROLLBACK', []).then((output) => {
-    utils.log('error', `QUERY FAILED, Rolling back changes... ${error.stack}`);
-  }).catch((error1) => {
-    utils.log('error', `ROLLBACK FAILED ${error1.stack}`);
-  });
-};
+module.exports = db;

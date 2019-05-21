@@ -1,16 +1,19 @@
-/**
- * The Signup model.
- */
-class Signup {
-  /**
-   * The constructor for the Signup.
-   * @param {Object} obj the json representation of the Signup.
-   */
-  constructor(obj) {
-    this.id = obj.id;
-    this.tournament = obj.tournament,
-    this.player = obj.player;
-  }
-}
-
-module.exports = Signup;
+module.exports = (sequelize, DataTypes) => {
+  const Signup = sequelize.define('signup', {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    tournament: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    player: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  });
+  return Signup;
+};

@@ -1,29 +1,89 @@
-/**
- * The Tournament model.
- */
-class Tournament {
-  /**
-   * The constructor for the Tournament.
-   * @param {Object} obj the json representation of the Tournament.
-   */
-  constructor(obj) {
-    this.id = obj.id;
-    this.name = obj.name;
-    this.description = obj.description;
-    this.canSignup = obj.canSignup;
-    this.isActive = obj.isActive;
-    this.isHidden = obj.isHidden;
-    this.isComplete = obj.isComplete;
-    this.maxPlayers = obj.maxPlayers;
-    this.minPlayers = obj.minPlayers;
-    this.pointsWin = obj.pointsWin;
-    this.pointsLose = obj.pointsLose;
-    this.pointsFFWin = obj.pointsFFWin;
-    this.pointsFFLose = obj.pointsFFLose;
-    this.pointsTie = obj.pointsTie;
-    this.currentRound = obj.currentRound;
-    this.game = obj.game;
-  }
-}
-
-module.exports = Tournament;
+module.exports = (sequelize, DataTypes) => {
+  const Tournament = sequelize.define('tournament', {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    canSignup: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    isHidden: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
+    isComplete: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    maxPlayers: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 16,
+    },
+    minPlayers: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 2,
+    },
+    pointsWin: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 2,
+    },
+    pointsLose: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    pointsFFWin: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 2,
+    },
+    pointsFFLose: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    pointsTie: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1,
+    },
+    currentRound: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    game: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'game',
+        key: 'id',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'SET NULL',
+    },
+  });
+  return Tournament;
+};

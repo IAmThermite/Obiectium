@@ -1,3 +1,5 @@
+<p class="title">Tournaments</p>
+
 <% if(data.tournaments && data.games) { %>
   <% for(var i = 0; i < data.games.length; i++) { %>
     <p class="title"><a href="/games/#<%= data.games[i].name %>"><%= data.games[i].name %></a></p>

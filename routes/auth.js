@@ -1,5 +1,6 @@
 const passport = require('passport');
 const router = require('express').Router();
+const utils = require('../src/utils');
 
 /**
  * The actual login
@@ -7,7 +8,7 @@ const router = require('express').Router();
 router.get('/steam',
     passport.authenticate('steam', {failureRedirect: '/'}),
     (req, res) => {
-      res.redirect('/');
+      res.redirect(`/players/${req.user.steamid}`);
     }
 );
 
@@ -26,9 +27,12 @@ router.get('/steam/return',
 );
 
 router.get('/logout', (req, res) => {
-  req.session.destroy();
-  req.logout();
-  res.redirect('/');
+  req.session.destroy((error) => {
+    if (error) {
+      utils.log('error', error);
+    }
+    res.redirect('/');
+  });
 });
 
 module.exports = router;

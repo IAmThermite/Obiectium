@@ -1,11 +1,10 @@
-const db = require('../src/db');
+const utils = require('../src/utils');
+const Match = require('../models/match');
 
 module.exports = {
   findOne: (id) => new Promise((resolve, reject) => {
-    const query = `SELECT * FROM matches WHERE id = $1 LIMIT 1`;
-    db.query(query, [id]).then((result) => {
-      utils.log('info', JSON.stringify(result.rows));
-      resolve(result);
+    Match.findOne({where: {id}}).then((output) => {
+      resolve(output);
     }).catch((error) => {
       utils.log('error', error);
       reject(error);
@@ -13,10 +12,8 @@ module.exports = {
   }),
 
   findAll: () => new Promise((resolve, reject) => {
-    const query = `SELECT * FROM matches`;
-    db.query(query, []).then((result) => {
-      utils.log('info', JSON.stringify(result.rows));
-      resolve(result);
+    Match.findOne({where: {name}}).then((output) => {
+      resolve(output);
     }).catch((error) => {
       utils.log('error', error);
       reject(error);
@@ -24,10 +21,8 @@ module.exports = {
   }),
 
   findAllByTournament: (id) => new Promise((resolve, reject) => {
-    const query = `SELECT * FROM matches WHERE tournament_id = $1`;
-    db.query(query, [id]).then((result) => {
-      utils.log('info', JSON.stringify(result.rows));
-      resolve(result);
+    Match.findAll({where: {tournament: id}}).then((output) => {
+      resolve(output);
     }).catch((error) => {
       utils.log('error', error);
       reject(error);
@@ -35,23 +30,12 @@ module.exports = {
   }),
 
   add: (match) => new Promise((resolve, reject) => {
-    const query = `INSERT INTO matches(title, home_player,
-        away_player, tournament_id, round_number, maps)
-        VALUES($1, $2, $3, $4, $5, $6)`;
-    const params = [
-      match.title,
-      match.homePlayer,
-      match.isBye,
-      match.tournament,
-      match.roundNumber,
-      match.maps,
-    ];
-    db.query(query, params).then((result) => {
-      utils.log('info', JSON.stringify(result.rows));
-      resolve(result);
+    Match.add({
+
+    }).then((output) => {
+      resolve(output);
     }).catch((error) => {
-      utils.log('error', error);
-      reject(error);
+      reject(output);
     });
   }),
 };

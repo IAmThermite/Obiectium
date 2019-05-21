@@ -3,19 +3,22 @@ const utils = require('../src/utils');
 const controller = require('../controllers').Player;
 
 router.get('/', (req, res) => {
-  controller.findAll().then((result) => {
-    utils.render(req, res, 'players/list', 'Players',
-        {players: result});
+  controller.findAll().then((players) => {
+    utils.render(req, res, 'players/list', 'Players', {
+      players,
+    });
   }).catch((error) => {
-    utils.sendError(req, res, error, 500);
+    utils.sendError(req, res, 'ERROR', 500);
   });
 });
 
 router.get('/:steamid', (req, res) => {
-  controller.findOneBySteamID(req.params.steamid).then((result) => {
-    utils.render(req, res, 'players/view', 'Players', {player: result});
+  controller.findOne(req.params.steamid).then((player) => {
+    utils.render(req, res, 'players/view', `Player ${player.alias}`, {
+      player,
+    });
   }).catch((error) => {
-    utils.sendError(req, res, error, 500);
+    utils.sendError(req, res, 'ERROR', 500);
   });
 });
 

@@ -1,17 +1,10 @@
-const db = require('../src/db');
 const utils = require('../src/utils');
-const Player = require('../models/player');
+const Player = require('../models/').player;
 
 module.exports = {
-  findOneBySteamID: (steamid) => new Promise((resolve, reject) => {
-    const query = `SELECT * FROM players WHERE steamid = $1 LIMIT 1`;
-    db.query(query, [steamid]).then((result) => {
-      if (result.rowCount > 0) {
-        utils.log('info', JSON.stringify(result.rows[0]));
-        resolve(new Player(result.rows[0]));
-      } else {
-        resolve(undefined);
-      }
+  findOne: (steamid) => new Promise((resolve, reject) => {
+    Player.findOne({where: {steamid}}).then((output) => {
+      resolve(output);
     }).catch((error) => {
       utils.log('error', error);
       reject(error);
@@ -19,10 +12,8 @@ module.exports = {
   }),
 
   findOneByAlias: (alias) => new Promise((resolve, reject) => {
-    const query = `SELECT * FROM players WHERE alias = $1 LIMIT 1`;
-    db.query(query, [alias]).then((result) => {
-      utils.log('info', JSON.stringify(result.rows[0]));
-      resolve(new Player(result.rows[0]));
+    Player.findOne({where: {alias}}).then((output) => {
+      resolve(output);
     }).catch((error) => {
       utils.log('error', error);
       reject(error);
@@ -30,14 +21,8 @@ module.exports = {
   }),
 
   findAll: () => new Promise((resolve, reject) => {
-    const query = `SELECT * FROM players`;
-    db.query(query, []).then((result) => {
-      const players = [];
-      result.rows.forEach((obj) => {
-        players.push(new Player(obj));
-      });
-      utils.log('info', JSON.stringify(result.rows));
-      resolve(players);
+    Player.findAll().then((output) => {
+      resolve(output);
     }).catch((error) => {
       utils.log('error', error);
       reject(error);
@@ -45,16 +30,12 @@ module.exports = {
   }),
 
   add: (player) => new Promise((resolve, reject) => {
-    const query = `INSERT INTO players(steamid, alias,
-        avatar)
-        VALUES($1, $2, $3)`;
-    db.query(query, [
-      player.steamid,
-      player.alias,
-      player.avatar,
-    ]).then((result) => {
-      utils.log('info', JSON.stringify(result));
-      resolve(new Player(result.rows[0]));
+    Player.create({
+      steamid: player.steamid,
+      alias: player.alias,
+      avatar: player.avatar,
+    }).then((output) => {
+      resolve(output);
     }).catch((error) => {
       utils.log('error', error);
       reject(error);

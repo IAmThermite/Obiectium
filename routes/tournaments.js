@@ -1,19 +1,20 @@
 const router = require('express').Router();
 const utils = require('../src/utils');
-const gameController = require('../controllers').Game;
 const controller = require('../controllers').Tournament;
+const gameController = require('../controllers').Game;
 
 router.get('/', (req, res) => {
   Promise.all([
     controller.findAll(),
     gameController.findAll(),
   ]).then((results) => {
-    utils.render(req, res, 'tournaments/list', 'Tournaments', {
+    utils.render(req, res, 'tournaments/list', 'Players', {
       tournaments: results[0],
       games: results[1],
     });
   }).catch((error) => {
-    utils.sendError(req, res, error, 500);
+    console.log(error);
+    utils.sendError(req, res, 'ERROR', 500);
   });
 });
 
