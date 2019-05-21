@@ -30,8 +30,10 @@ router.get('/logout', (req, res) => {
   req.session.destroy((error) => {
     if (error) {
       utils.log('error', error);
+      utils.sendError(req, res, 'Logout failed. Contact a developer', 500);
+    } else {
+      res.redirect('/');
     }
-    res.redirect('/');
   });
 });
 

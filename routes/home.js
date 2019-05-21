@@ -13,8 +13,8 @@ router.get('/', (req, res) => {
       pinned: results[1],
     });
   }).catch((error) => {
-    console.log(error);
-    utils.sendError(req, res, error, 500);
+    utils.log('error', error);
+    utils.sendError(req, res, 'Internal server error', 500);
   });
 });
 

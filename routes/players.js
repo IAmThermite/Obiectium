@@ -8,17 +8,21 @@ router.get('/', (req, res) => {
       players,
     });
   }).catch((error) => {
-    utils.sendError(req, res, 'ERROR', 500);
+    utils.sendError(req, res, 'Internal server error', 500);
   });
 });
 
 router.get('/:steamid', (req, res) => {
   controller.findOne(req.params.steamid).then((player) => {
-    utils.render(req, res, 'players/view', `Player ${player.alias}`, {
-      player,
-    });
+    if (player) {
+      utils.render(req, res, 'players/view', `Player ${player.alias}`, {
+        player,
+      });
+    } else {
+      utils.sendError(req, res, 'Player not found!', 404);
+    }
   }).catch((error) => {
-    utils.sendError(req, res, 'ERROR', 500);
+    utils.sendError(req, res, 'Internal server error', 500);
   });
 });
 

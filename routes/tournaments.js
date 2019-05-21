@@ -13,16 +13,23 @@ router.get('/', (req, res) => {
       games: results[1],
     });
   }).catch((error) => {
-    console.log(error);
-    utils.sendError(req, res, 'ERROR', 500);
+    utils.log('error', error);
+    utils.sendError(req, res, 'Internal server error', 500);
   });
 });
 
 router.get('/:id', (req, res) => {
-  controller.findOne(req.params.id).then((result) => {
-    utils.render(req, res, 'tournaments/view', 'Tournaments', {tournament: result});
+  controller.findOne(req.params.id).then((tournament) => {
+    if (tournament) {
+      utils.render(req, res, 'tournaments/view', `Tournament ${tournament.name}`, {
+        tournament,
+      });
+    } else {
+      utils.sendError(req, res, 'Tournament not found!', 404);
+    }
   }).catch((error) => {
-    utils.sendError(req, res, error, 500);
+    utils.log('error', error);
+    utils.sendError(req, res, 'Internal server error', 500);
   });
 });
 

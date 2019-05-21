@@ -3,27 +3,29 @@ const utils = require('../src/utils');
 const controller = require('../controllers').Game;
 
 router.get('/', (req, res) => {
-  const games = controller.findAll();
-
-  if (games) {
+  controller.findAll().then((games) => {
     utils.render(req, res, 'games/list', 'Games', {
       games,
     });
-  } else {
-    utils.sendError(req, res, 'ERROR', 500);
-  }
+  }).catch((error) => {
+    utils.log('error', error);
+    utils.sendError(req, res, 'Internal server error', 500);
+  });
 });
 
 router.get('/:id', (req, res) => {
-  const game = controller.findOne(req.params.id);
-
-  if (game) {
-    utils.render(req, res, 'games/list', `Game ${game.name}`, {
-      game,
-    });
-  } else {
-    utils.sendError(req, res, 'ERROR', 500);
-  }
+  controller.findOne(req.params.id).then((game) => {
+    if (game) {
+      utils.render(req, res, 'games/view', 'Games', {
+        game,
+      });
+    } else {
+      utils.sendError(req, res, 'Game not found!', 404);
+    }
+  }).catch((error) => {
+    utils.log('error', error);
+    utils.sendError(req, res, 'Internal server error', 500);
+  });
 });
 
 router.post('/new/', (req, res) => {
